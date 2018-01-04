@@ -1,0 +1,66 @@
+android {
+  buildTypes {
+    release {
+      def baseUrl = "\"http://40.125.161.134:8088/"
+      buildConfigField 'String', "API", "${baseUrl}\""
+      buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'OKHTTP_LOG_LEVEL',
+          'okhttp3.logging.HttpLoggingInterceptor.Level.NONE'
+      buildConfigField 'String', "IMAGE_PREFIX", "${baseUrl}BV/html/upload/\""
+      buildConfigField 'String', "IMAGE_PROJECT_PREFIX", "${baseUrl}BV/html/projectPhotos/\""
+      minifyEnabled false
+    }
+    debug {
+      def baseUrl = "\"http://192.168.30.16:8080/"
+      buildConfigField 'String', "API", "${baseUrl}\""
+      buildConfigField 'String', "IMAGE_PREFIX", "${baseUrl}BV/html/upload/\""
+      buildConfigField 'String', "IMAGE_PROJECT_PREFIX", "${baseUrl}BV/html/projectPhotos/\""
+      buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'OKHTTP_LOG_LEVEL',
+          'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
+      debuggable true
+    }
+  }
+
+  defaultConfig {
+    javaCompileOptions {
+      annotationProcessorOptions {
+        includeCompileClasspath false
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+}
+
+kotlin {
+  experimental {
+    coroutines "enable"
+  }
+}
+
+dependencies {
+  kapt deps.immutables.value
+  kapt deps.dagger.compiler
+  kapt deps.room.compiler
+  implementation deps.room.runtime
+  implementation deps.dagger.runtime
+  implementation deps.javax_inject
+  implementation deps.retrofit.runtime
+  implementation deps.retrofit.rxjava2
+  implementation deps.retrofit.gson
+  //  implementation dataDependencies.okhttp
+  implementation deps.okhttp3.logging
+  implementation deps.okhttp3.stetho
+  implementation deps.gson
+  implementation deps.support.annotations
+  implementation deps.immutables.value
+  implementation deps.immutables.gson
+  implementation deps.compressor
+  testImplementation deps.junit
+  testImplementation deps.mockito.core
+  testImplementation deps.roboletric
+  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.espresso.core
+}

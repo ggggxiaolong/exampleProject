@@ -1,0 +1,17 @@
+dependencies {
+  kapt deps.immutables.value
+  kapt deps.dagger.compiler
+
+  api project(':data')
+  implementation deps.dagger.runtime
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  implementation deps.arrow
+  implementation deps.timber
+  implementation deps.okhttp3.runtime
+  implementation deps.gson
+
+  testImplementation deps.junit
+  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.espresso.core
+}

@@ -56,19 +56,6 @@ subprojects {
             versionName build_versions.androidVersionName
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             multiDexEnabled true
-            vectorDrawables.useSupportLibrary = true //drawable支持
-        }
-        buildTypes {
-            debug {
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), '../dependecies/proguard-rules-debug.pro'
-                minifyEnabled true
-                zipAlignEnabled true
-                jniDebuggable true
-            }
-            release {
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), '../dependecies/proguard-rules.pro'
-            }
         }
 
         compileOptions {
