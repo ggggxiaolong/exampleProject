@@ -1,0 +1,96 @@
+apply plugin: 'com.github.ben-manes.versions'
+import org.ajoberstar.grgit.Grgit
+
+buildscript {
+    apply from: "dependencies/versions.gradle"
+
+    repositories{
+        maven{ url 'http://192.168.30.16:8081/nexus/content/groups/public' }
+        google()
+    }
+
+    dependencies {
+        classpath deps.android_gradle_plugin
+        classpath deps.grgit
+        //检查版本更新  ./gradlew dependencyUpdates -Drevision=release
+        classpath deps.lib_versions
+        classpath deps.kotlin.plugin
+        classpath deps.kotlin.android_extensions
+    }
+}
+
+allprojects {
+    def git = Grgit.open(currentDir: projectDir)
+    addGitVersion(git.describe(), git.tag.list().size())
+
+    repositories{
+        maven{ url 'http://192.168.30.16:8081/nexus/content/groups/public' }
+        google()
+    }
+
+}
+
+subprojects {
+    def isModule = false
+    def isAppModule = isModule || it.name.equals("app")
+    def dataBindingModules = ["app"]
+    //使用dataBinding的模块
+    def enableDataBinding = dataBindingModules.contains(it.name)
+
+    apply plugin: isAppModule ? 'com.android.application' : 'com.android.library'
+
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-android-extensions' // 拓展
+
+    apply plugin: 'kotlin-kapt'
+
+    android {
+        compileSdkVersion build_versions.compile_sdk
+        buildToolsVersion build_versions.build_tools
+        defaultConfig {
+            if(isAppModule) applicationId "com.zftx.pm" //这里改成项目id
+            minSdkVersion build_versions.min_sdk
+            targetSdkVersion build_versions.target_sdk
+
+            versionCode build_versions.androidVersionCode
+            versionName build_versions.androidVersionName
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+            multiDexEnabled true
+            vectorDrawables.useSupportLibrary = true //drawable支持
+        }
+        buildTypes {
+            debug {
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), '../dependecies/proguard-rules-debug.pro'
+                minifyEnabled true
+                zipAlignEnabled true
+                jniDebuggable true
+            }
+            release {
+                minifyEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), '../dependecies/proguard-rules.pro'
+            }
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        if (enableDataBinding) {
+            dataBinding {
+                enabled true
+            }
+        }
+    }
+
+    dependencies {
+        if(enableDataBinding) kapt deps.databinding.compiler
+        implementation deps.kotlin.stdlib
+        implementation deps.rxjava2
+        implementation deps.rx_android
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
