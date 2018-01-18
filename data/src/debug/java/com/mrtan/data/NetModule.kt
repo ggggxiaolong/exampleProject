@@ -3,11 +3,12 @@ package com.mrtan.data
 /**
  * @author mrtan on 8/30/17.
  */
+import android.app.Application
 import android.arch.persistence.room.Room
-import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.mrtan.data.domain.GsonAdaptersDomain
 import com.mrtan.data.local.AppDatabase
 import com.mrtan.data.remote.Api
 import dagger.Module
@@ -17,7 +18,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Singleton
 
 /**
@@ -28,7 +28,7 @@ class NetModule {
   @Provides
   @Singleton internal fun provideGson(): Gson {
     return GsonBuilder()
-//        .registerTypeAdapterFactory(GsonAdaptersDomain())
+        .registerTypeAdapterFactory(GsonAdaptersDomain())
         .create()
   }
 
@@ -52,7 +52,7 @@ class NetModule {
   }
 
   @Provides
-  @Singleton internal fun database(context: Context): AppDatabase {
+  @Singleton internal fun database(context: Application): AppDatabase {
     return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
   }
 }

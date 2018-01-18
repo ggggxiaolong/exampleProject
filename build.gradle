@@ -32,7 +32,7 @@ allprojects {
 
 subprojects {
     def isModule = false
-    def isAppModule = isModule || it.name.equals("app")
+    def isAppModule = isModule || it.name == "app"
     def dataBindingModules = ["app"]
     //使用dataBinding的模块
     def enableDataBinding = dataBindingModules.contains(it.name)

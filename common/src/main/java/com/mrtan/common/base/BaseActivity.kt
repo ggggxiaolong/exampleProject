@@ -1,5 +1,6 @@
 package com.mrtan.common.base
 
+import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -7,27 +8,30 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.mrtan.common.R
-import com.mrtan.common.inject.component.ApplicationComponent
-import com.mrtan.common.inject.module.ActivityModule
-import android.view.MotionEvent
 import com.mrtan.common.util.KeyBoardUtils
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.Inject
 
 
 /**
  * @author mrtan on 17-3-14.
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
   internal var mTitle: TextView? = null
+  @Inject
+  lateinit var mDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
-  protected val activityModule: ActivityModule
-    get() = ActivityModule(this)
-
-  protected val applicationComponent: ApplicationComponent
-    get() = (application as BaseApplication).applicationComponent
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+  }
 
   protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) {
     supportFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
@@ -77,12 +81,11 @@ abstract class BaseActivity : AppCompatActivity() {
   }
 
   fun isFocusView(v: View, vararg ids: Int): Boolean {
-    val id = v.id
-    if (ids.isEmpty()) return false
-    for (i in ids) {
-      if (id == i) return true
-    }
-    return false
+    return (ids.isNotEmpty()) && ids.contains(v.id)
+  }
+
+  override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+    return mDispatchingAndroidInjector
   }
 
   companion object {

@@ -1,21 +1,23 @@
 package com.mrtan.common.base
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import com.mrtan.common.inject.component.ApplicationComponent
-import com.mrtan.common.inject.component.DaggerApplicationComponent
-import com.mrtan.common.inject.module.ApplicationModule
+import com.mrtan.common.inject.AppInjector
 import com.mrtan.common.util.ContextHolder
-import com.mrtan.data.NetModule
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
 /**
  * @author mrtan 17-3-28
  */
 
-open class BaseApplication : Application() {
-  lateinit var applicationComponent: ApplicationComponent
-    internal set
+abstract class BaseApplication : Application(), HasActivityInjector {
+
+  @Inject lateinit var mActivityInjector: DispatchingAndroidInjector<Activity>
 
   override fun attachBaseContext(base: Context?) {
     super.attachBaseContext(base)
@@ -26,16 +28,16 @@ open class BaseApplication : Application() {
     super.onCreate()
     initializeUtil()
     initializeInject()
+    AppInjector.init(this)
   }
 
   private fun initializeUtil() {
     ContextHolder.init(this)
   }
 
-  private fun initializeInject() {
-    applicationComponent = DaggerApplicationComponent.builder()
-        .applicationModule(ApplicationModule(this))
-        .netModule(NetModule())
-        .build()
+  abstract fun initializeInject()
+
+  override fun activityInjector(): AndroidInjector<Activity> {
+    return mActivityInjector
   }
 }

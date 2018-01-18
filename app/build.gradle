@@ -65,11 +65,15 @@ dependencies {
   implementation deps.dagger.runtime
   implementation deps.dagger.android
   implementation deps.dagger.android_support
+
   implementation deps.timber
+
   kapt deps.glide.compile
   implementation deps.glide.runtime
   implementation deps.glide.okHttp3
   implementation deps.glide.recyclerView
+
+  implementation deps.gson
   implementation deps.flexibledivider
   implementation deps.bottomNavigationEx
   implementation deps.superCalendar
@@ -77,6 +81,8 @@ dependencies {
   implementation deps.photopicker2
   implementation deps.materialDialogs.core
   implementation deps.bugly
+  kapt deps.room.compiler
+  implementation deps.room.runtime
   testImplementation deps.junit
   androidTestImplementation deps.atsl.runner
   androidTestImplementation deps.espresso.core

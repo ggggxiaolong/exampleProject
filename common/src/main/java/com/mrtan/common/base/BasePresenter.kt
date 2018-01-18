@@ -1,5 +1,6 @@
 package com.mrtan.common.base
 
+import android.arch.lifecycle.ViewModel
 import dagger.internal.Preconditions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -8,7 +9,7 @@ import io.reactivex.disposables.Disposable
  * @author mrtan on 17-3-15.
  */
 
-open class BasePresenter<V : MvpView> : MvpPresenter<V> {
+abstract class BasePresenter<V : MvpView> : MvpPresenter<V>, ViewModel() {
   protected var mView: V? = null
   internal var mSubscription = CompositeDisposable()
 
@@ -20,6 +21,10 @@ open class BasePresenter<V : MvpView> : MvpPresenter<V> {
   override fun onDetach() {
     dispose()
     mView = null
+  }
+
+  override fun onCleared() {
+    onDetach()
   }
 
   protected fun addSubscription(subscription: Disposable) {
