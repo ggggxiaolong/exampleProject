@@ -4,7 +4,7 @@ package com.mrtan.data
  * @author mrtan on 8/30/17.
  */
 import android.arch.persistence.room.Room
-import android.content.Context
+import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mrtan.data.domain.GsonAdaptersDomain
@@ -46,7 +46,7 @@ import javax.inject.Singleton
   }
 
   @Provides
-  @Singleton fun database(context: Context): AppDatabase {
+  @Singleton fun database(context: Application): AppDatabase {
     return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
   }
 
