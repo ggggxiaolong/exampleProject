@@ -21,4 +21,4 @@ fun <T> Single <T>.async(): Single<T> {
       .observeOn(AndroidSchedulers.mainThread())
 }
 
-inline fun Disposable.addThis(t: (Disposable) -> Unit) = t(this)
+//inline fun Disposable.addThis(t: (Disposable) -> Unit) = t(this)

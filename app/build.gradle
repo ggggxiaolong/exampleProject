@@ -73,6 +73,10 @@ dependencies {
   implementation deps.glide.okHttp3
   implementation deps.glide.recyclerView
 
+  implementation deps.autoDispose.runtime
+  implementation deps.autoDispose.kotlin
+  implementation deps.autoDispose.android_arc_kotlin
+
   implementation deps.gson
   implementation deps.flexibledivider
   implementation deps.bottomNavigationEx

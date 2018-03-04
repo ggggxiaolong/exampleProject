@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.mrtan.common.base.BaseFragment
 import com.mrtan.common.inject.Injectable
+import com.mrtan.common.util.createViewModule
 import com.zftx.pm.R
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -32,8 +33,7 @@ class LoginFragment: BaseFragment(), Injectable, LoginView {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    mViewModel = ViewModelProviders.of(this, mVMFactory).get(LoginVM::class.java)
-    mViewModel.onAttach(this)
+    mViewModel = createViewModule<LoginView, LoginVM>(this, mVMFactory)
     mBinding.loginVM = mViewModel
     mViewModel.showText(object : Observer<String> {
       override fun onError(e: Throwable) {

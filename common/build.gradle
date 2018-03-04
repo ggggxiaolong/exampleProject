@@ -18,6 +18,8 @@ dependencies {
   implementation deps.okhttp3.runtime
   implementation deps.gson
 
+  implementation deps.autoDispose.android_arc_kotlin
+
   testImplementation deps.junit
   androidTestImplementation deps.atsl.runner
   androidTestImplementation deps.espresso.core

@@ -1,18 +1,23 @@
 package com.mrtan.common.util
 
-import android.content.Context
+import android.app.Application
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
+import android.support.v4.app.Fragment
+import com.mrtan.common.base.BasePresenter
+import com.mrtan.common.base.MvpView
 
 class ContextHolder private constructor() {
   companion object {
-    lateinit var context: Context
-    fun init(value: Context): Unit {
-      context = value.applicationContext
+    lateinit var context: Application
+    fun init(value: Application): Unit {
+      context = value
     }
   }
 }
@@ -61,3 +66,10 @@ val isAppDebug: Boolean
     }
 
   }
+
+inline fun <reified V: MvpView, reified T : BasePresenter<V>> createViewModule(fragment: Fragment,
+    factory: ViewModelProvider.Factory): T {
+  val target = ViewModelProviders.of(fragment, factory).get(T::class.java)
+  if (fragment is V) target.bind(fragment)
+  return target
+}

@@ -5,7 +5,5 @@ package com.mrtan.common.base
  */
 
 interface MvpPresenter<in V : MvpView> {
-  fun onAttach(view: V)
-
-  fun onDetach()
+  fun bind(view: V)
 }
