@@ -1,7 +1,6 @@
 package com.zftx.pm.ui
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.mrtan.common.base.BaseFragment
 import com.mrtan.common.inject.Injectable
-import com.mrtan.common.util.createViewModule
+import com.mrtan.common.util.createViewModel
 import com.zftx.pm.R
+import com.zftx.pm.databinding.FragLoinBinding
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
-
-import com.zftx.pm.databinding.FragLoinBinding
 
 /**
  * @author mrtan on 1/15/18.
@@ -33,7 +31,7 @@ class LoginFragment: BaseFragment(), Injectable, LoginView {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    mViewModel = createViewModule<LoginView, LoginVM>(this, mVMFactory)
+    mViewModel = createViewModel(this, mVMFactory)
     mBinding.loginVM = mViewModel
     mViewModel.showText(object : Observer<String> {
       override fun onError(e: Throwable) {

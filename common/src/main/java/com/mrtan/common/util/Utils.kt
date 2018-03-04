@@ -10,13 +10,14 @@ import android.support.annotation.ArrayRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import com.mrtan.common.base.BasePresenter
 import com.mrtan.common.base.MvpView
 
 class ContextHolder private constructor() {
   companion object {
     lateinit var context: Application
-    fun init(value: Application): Unit {
+    fun init(value: Application) {
       context = value
     }
   }
@@ -40,13 +41,14 @@ fun getString(@StringRes id: Int, vararg formatArgs: Any): String {
 }
 
 fun getDrawable(@DrawableRes id: Int): Drawable {
-  return ContextHolder.context.resources.getDrawable(id)
+  return ContextCompat.getDrawable(ContextHolder.context, id)!!
 }
 
 fun dp2px(dpValue: Float): Int {
   val scale = ContextHolder.context.resources.displayMetrics.density
   return (dpValue * scale + 0.5f).toInt()
 }
+
 /**
  * 判断App是否是Debug版本
 
@@ -56,20 +58,21 @@ val isAppDebug: Boolean
   get() {
     val packageName = ContextHolder.context.packageName
     if (packageName == null || packageName.isEmpty()) return false
-    try {
+    return try {
       val pm = ContextHolder.context.packageManager
       val ai = pm.getApplicationInfo(packageName, 0)
-      return ai != null && ai.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+      ai != null && ai.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
-      return false
+      false
     }
 
   }
 
-inline fun <reified V: MvpView, reified T : BasePresenter<V>> createViewModule(fragment: Fragment,
-    factory: ViewModelProvider.Factory): T {
-  val target = ViewModelProviders.of(fragment, factory).get(T::class.java)
-  if (fragment is V) target.bind(fragment)
+inline fun <reified View : MvpView, reified VM : BasePresenter<View>> createViewModel(
+    fragment: Fragment,
+    factory: ViewModelProvider.Factory): VM {
+  val target = ViewModelProviders.of(fragment, factory).get(VM::class.java)
+  if (fragment is View) target.bind(fragment)
   return target
 }
