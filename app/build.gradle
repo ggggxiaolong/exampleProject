@@ -56,8 +56,7 @@ dependencies {
   implementation deps.support.design
 
   implementation deps.lifecycle.runtime
-  implementation deps.lifecycle.extensions
-  implementation deps.lifecycle.java8
+  implementation deps.lifecycle.viewmodel
   kapt deps.lifecycle.compiler
 
   kapt deps.dagger.compiler

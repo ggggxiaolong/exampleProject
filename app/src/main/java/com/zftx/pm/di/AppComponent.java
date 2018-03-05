@@ -7,7 +7,6 @@ import com.zftx.pm.App;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import javax.inject.Singleton;
 

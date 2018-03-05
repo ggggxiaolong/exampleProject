@@ -52,11 +52,11 @@ dependencies {
   implementation deps.retrofit.gson
   //  implementation dataDependencies.okhttp
   implementation deps.okhttp3.logging
-  implementation deps.okhttp3.stetho
+  debugImplementation deps.okhttp3.stetho
   implementation deps.gson
-  implementation deps.support.annotations
-  implementation deps.immutables.value
-  implementation deps.immutables.gson
+  compileOnly deps.support.annotations
+  compileOnly deps.immutables.value
+  compileOnly deps.immutables.gson
   implementation deps.compressor
   testImplementation deps.junit
   testImplementation deps.mockito.core
