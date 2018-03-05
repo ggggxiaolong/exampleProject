@@ -10,5 +10,4 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module(includes = [FragmentBuilderModule::class] )
 abstract class ActivityModule {
-  @ContributesAndroidInjector() abstract fun activity(): LoginActivity
 }

@@ -1,6 +1,5 @@
 package com.mrtan.common.base
 
-import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -13,12 +12,8 @@ import android.view.View
 import android.widget.TextView
 import com.mrtan.common.R
 import com.mrtan.common.util.KeyBoardUtils
-import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
-
 
 /**
  * @author mrtan on 17-3-14.
@@ -26,12 +21,7 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
   internal var mTitle: TextView? = null
-  @Inject
-  lateinit var mDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
+  lateinit var fragmentInjector: AndroidInjector<Fragment>
 
   protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) {
     supportFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
@@ -85,7 +75,7 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
   }
 
   override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-    return mDispatchingAndroidInjector
+    return fragmentInjector
   }
 
   companion object {

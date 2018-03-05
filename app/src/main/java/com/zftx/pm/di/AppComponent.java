@@ -1,11 +1,14 @@
 package com.zftx.pm.di;
 
 import android.app.Application;
+import android.support.v4.app.Fragment;
 import com.mrtan.data.NetModule;
 import com.zftx.pm.App;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
 import javax.inject.Singleton;
 
 /**
@@ -24,4 +27,6 @@ import javax.inject.Singleton;
   }
 
   void inject(App app);
+
+  DispatchingAndroidInjector<Fragment> fragmentInjector();
 }

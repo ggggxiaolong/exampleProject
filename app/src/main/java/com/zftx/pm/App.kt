@@ -20,7 +20,10 @@ class App : BaseApplication(), HasActivityInjector {
   }
 
   override fun initializeInject() {
-    DaggerAppComponent.builder().application(this).build().inject(this)
-    AppInjector.init(this)
+    val appComponent = DaggerAppComponent.builder()
+        .application(this)
+        .build()
+    appComponent.inject(this)
+    AppInjector.init(this, appComponent.fragmentInjector())
   }
 }
