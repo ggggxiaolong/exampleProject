@@ -22,14 +22,12 @@ android {
   buildTypes {
     debug {
       applicationIdSuffix ".debug"
-      proguardFiles getDefaultProguardFile('proguard-android.txt'),
-          '../dependencies/proguard-rules-debug.pro'
-      minifyEnabled true
-      zipAlignEnabled true
+      minifyEnabled false
+      zipAlignEnabled false
       jniDebuggable true
       signingConfig signingConfigs.debug
       manifestPlaceholders =
-          [bugly_appid: "05515f6ddd", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
+          [bugly_appid: "07d2dc0e6c", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
     }
     release {
       debuggable false
@@ -42,7 +40,7 @@ android {
       }
       signingConfig signingConfigs.release
       manifestPlaceholders =
-          [bugly_appid: "3365eda689", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
+          [bugly_appid: "07d2dc0e6c", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
     }
   }
 }

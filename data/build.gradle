@@ -1,19 +1,15 @@
 android {
   buildTypes {
     release {
-      def baseUrl = "\"http://40.125.161.134:8088/"
+      def baseUrl = "\"https://api.drakeet.com/rebase/"
       buildConfigField 'String', "API", "${baseUrl}\""
       buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'OKHTTP_LOG_LEVEL',
-          'okhttp3.logging.HttpLoggingInterceptor.Level.NONE'
-      buildConfigField 'String', "IMAGE_PREFIX", "${baseUrl}BV/html/upload/\""
-      buildConfigField 'String', "IMAGE_PROJECT_PREFIX", "${baseUrl}BV/html/projectPhotos/\""
+          'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
       minifyEnabled false
     }
     debug {
-      def baseUrl = "\"http://192.168.30.16:8080/"
+      def baseUrl = "\"https://api.drakeet.com/rebase/"
       buildConfigField 'String', "API", "${baseUrl}\""
-      buildConfigField 'String', "IMAGE_PREFIX", "${baseUrl}BV/html/upload/\""
-      buildConfigField 'String', "IMAGE_PROJECT_PREFIX", "${baseUrl}BV/html/projectPhotos/\""
       buildConfigField 'okhttp3.logging.HttpLoggingInterceptor.Level', 'OKHTTP_LOG_LEVEL',
           'okhttp3.logging.HttpLoggingInterceptor.Level.BODY'
       debuggable true
