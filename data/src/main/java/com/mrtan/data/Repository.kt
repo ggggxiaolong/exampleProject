@@ -1,6 +1,7 @@
 package com.mrtan.data
 
 import android.os.SystemClock
+import com.mrtan.data.domain.User
 import com.mrtan.data.local.AppDatabase
 import com.mrtan.data.local.entity.UserEntity
 import com.mrtan.data.remote.Api
@@ -29,4 +30,6 @@ class Repository @Inject constructor(
       }
     }
   }
+
+  fun user(username: String): Single<User> = mApi.user(username)
 }

@@ -51,7 +51,7 @@ class LoginFragment: BaseFragment(), Injectable, LoginView {
   }
 
   override fun onLogin(token: String) {
-    showToast("登录成功")
+    mBinding.text.text = token
   }
 
   override fun onError(message: String) {

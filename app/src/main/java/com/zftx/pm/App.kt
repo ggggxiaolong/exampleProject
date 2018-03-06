@@ -3,6 +3,7 @@ package com.zftx.pm
 import android.app.Activity
 import com.mrtan.common.base.BaseApplication
 import com.mrtan.common.inject.AppInjector
+import com.tencent.bugly.crashreport.CrashReport
 import com.zftx.pm.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -17,6 +18,11 @@ class App : BaseApplication(), HasActivityInjector {
 
   override fun activityInjector(): AndroidInjector<Activity> {
     return mActivityInjector
+  }
+
+  override fun onCreate() {
+    super.onCreate()
+    CrashReport.initCrashReport(this)
   }
 
   override fun initializeInject() {
