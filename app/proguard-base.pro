@@ -15,13 +15,13 @@
 }
 
 # log
-#-assumenosideeffects class android.util.Log {
-#    public static boolean isLoggable(java.lang.String, int);
-#    public static int d(...);
-#    public static int w(...);
-#    public static int v(...);
-#    public static int i(...);
-#}
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int d(...);
+    public static int w(...);
+    public static int v(...);
+    public static int i(...);
+}
 
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
@@ -36,8 +36,8 @@
 #-dontwarn com.crashlytics.**
 #-keep class io.fabric.** { *; }
 
-#-renamesourcefileattribute Proguard
-#-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute Proguard
+-keepattributes SourceFile,LineNumberTable
 
 # 混淆字典
 #-obfuscationdictionary dictionary-drakeet.txt
@@ -45,9 +45,5 @@
 #-packageobfuscationdictionary dictionary-drakeet.txt
 
 # 把代码以及所使用到的各种第三方库代码统统移动到同一个包下
-#-repackageclasses 'com.mrtan.code'
-#-allowaccessmodification
-
-# bugly
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
+-repackageclasses 'com.mrtan.data'
+-allowaccessmodification

@@ -22,9 +22,6 @@ android {
   buildTypes {
     debug {
       applicationIdSuffix ".debug"
-      minifyEnabled false
-      zipAlignEnabled false
-      jniDebuggable true
       signingConfig signingConfigs.debug
       manifestPlaceholders =
           [bugly_appid: "07d2dc0e6c", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
@@ -36,8 +33,10 @@ android {
         removeUnusedResources true
         obfuscate true
         optimizeCode true
-        proguardFile 'proguard-rules.pro'
+        proguardFile 'proguard-base.pro'
+        proguardFile 'proguard-extension.pro'
       }
+      zipAlignEnabled true
       signingConfig signingConfigs.release
       manifestPlaceholders =
           [bugly_appid: "07d2dc0e6c", bugly_app_version: build_versions.androidVersionName, bugly_app_channel: "fir"]
@@ -75,12 +74,6 @@ dependencies {
   implementation deps.autoDispose.android_arc_kotlin
 
   implementation deps.gson
-  implementation deps.flexibledivider
-  implementation deps.bottomNavigationEx
-  implementation deps.superCalendar
-  implementation deps.MPAndroidChart
-  implementation deps.photopicker2
-  implementation deps.materialDialogs.core
   implementation deps.bugly
   kapt deps.room.compiler
   implementation deps.room.runtime
