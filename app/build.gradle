@@ -52,10 +52,6 @@ dependencies {
   implementation deps.support.recyclerview
   implementation deps.support.design
 
-  implementation deps.lifecycle.runtime
-  implementation deps.lifecycle.viewmodel
-  kapt deps.lifecycle.compiler
-
   kapt deps.dagger.compiler
   kapt deps.dagger.android_support_compiler
   implementation deps.dagger.runtime

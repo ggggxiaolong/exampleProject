@@ -8,7 +8,6 @@ dependencies {
   implementation deps.dagger.android
   implementation deps.dagger.android_support
 
-  implementation deps.lifecycle.runtime
   implementation deps.lifecycle.extensions
 
   implementation deps.support.app_compat

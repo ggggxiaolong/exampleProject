@@ -4,10 +4,7 @@ import org.ajoberstar.grgit.Grgit
 buildscript {
   apply from: "dependencies/versions.gradle"
 
-  repositories {
-    maven { url 'http://192.168.30.16:8081/nexus/content/groups/public' }
-    google()
-  }
+  addRepos(repositories)
 
   dependencies {
     classpath deps.android_gradle_plugin
@@ -23,10 +20,7 @@ allprojects {
   def git = Grgit.open(currentDir: projectDir)
   addGitVersion(git.describe(), git.tag.list().size())
 
-  repositories {
-    maven { url 'http://192.168.30.16:8081/nexus/content/groups/public' }
-    google()
-  }
+  addRepos(repositories)
 }
 
 subprojects {
@@ -45,7 +39,6 @@ subprojects {
 
   android {
     compileSdkVersion build_versions.compile_sdk
-    buildToolsVersion build_versions.build_tools
     defaultConfig {
       if (isAppModule) applicationId "com.zftx.pm" //这里改成项目id
       minSdkVersion build_versions.min_sdk
@@ -66,6 +59,17 @@ subprojects {
     if (enableDataBinding) {
       dataBinding {
         enabled true
+      }
+    }
+  }
+
+  //room 和 kotlin bug
+  configurations.all {
+    resolutionStrategy {
+      eachDependency {
+        if (requested.name == "kotlin-compiler-embeddable") {
+          useVersion("1.2.30")
+        }
       }
     }
   }
