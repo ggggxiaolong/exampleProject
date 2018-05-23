@@ -75,7 +75,6 @@ subprojects {
   }
 
   dependencies {
-    if (enableDataBinding) kapt deps.databinding.compiler
     implementation deps.kotlin.stdlib
     implementation deps.rxjava2
     implementation deps.rx_android
