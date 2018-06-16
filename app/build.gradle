@@ -47,6 +47,7 @@ android {
 
 dependencies {
   implementation project(":common")
+  implementation project(":data")
   implementation deps.support.app_compat
   implementation deps.support.constraint_layout
   implementation deps.support.recyclerview

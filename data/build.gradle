@@ -50,6 +50,7 @@ dependencies {
   implementation deps.okhttp3.logging
   debugImplementation deps.okhttp3.stetho
   implementation deps.gson
+  implementation deps.lifecycle.livedata
   compileOnly deps.support.annotations
   compileOnly deps.immutables.value
   compileOnly deps.immutables.gson

@@ -1,7 +1,6 @@
 dependencies {
   kapt deps.immutables.value
 
-  api project(':data')
   kapt deps.dagger.compiler
   kapt deps.dagger.android_support_compiler
   implementation deps.dagger.runtime
