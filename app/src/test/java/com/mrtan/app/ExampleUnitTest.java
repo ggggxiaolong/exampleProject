@@ -1,7 +1,7 @@
-package com.zftx.pm;
+package com.mrtan.app;
 
 import com.mrtan.common.base.BaseActivity;
-import com.zftx.pm.ui.LoginActivity;
+import com.mrtan.app.ui.LoginActivity;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

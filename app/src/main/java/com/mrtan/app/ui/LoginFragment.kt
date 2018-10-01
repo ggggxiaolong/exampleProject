@@ -1,4 +1,4 @@
-package com.zftx.pm.ui
+package com.mrtan.app.ui
 
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.DataBindingUtil
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import com.mrtan.common.base.BaseFragment
 import com.mrtan.common.inject.Injectable
 import com.mrtan.common.util.createViewModel
-import com.zftx.pm.R
-import com.zftx.pm.databinding.FragLoinBinding
+import com.mrtan.app.R
+import com.mrtan.app.databinding.FragLoinBinding
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject

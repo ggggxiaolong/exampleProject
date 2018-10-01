@@ -1,8 +1,8 @@
-package com.zftx.pm.ui
+package com.mrtan.app.ui
 
 import android.os.Bundle
 import com.mrtan.common.base.BaseActivity
-import com.zftx.pm.R
+import com.mrtan.app.R
 
 /**
  * @author mrtan on 1/15/18.

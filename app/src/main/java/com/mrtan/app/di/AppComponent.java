@@ -1,9 +1,9 @@
-package com.zftx.pm.di;
+package com.mrtan.app.di;
 
 import android.app.Application;
 import android.support.v4.app.Fragment;
 import com.mrtan.data.NetModule;
-import com.zftx.pm.App;
+import com.mrtan.app.App;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;

@@ -1,10 +1,10 @@
-package com.zftx.pm.di;
+package com.mrtan.app.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.mrtan.common.inject.ViewModelKey;
 import com.mrtan.common.viewmodel.ViewModelFactory;
-import com.zftx.pm.ui.LoginVM;
+import com.mrtan.app.ui.LoginVM;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;

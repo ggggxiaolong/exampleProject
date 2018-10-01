@@ -7,7 +7,7 @@
         />
     <variable
         name="loginVM"
-        type="com.zftx.pm.ui.LoginVM"
+        type="com.mrtan.app.ui.LoginVM"
         />
   </data>
 

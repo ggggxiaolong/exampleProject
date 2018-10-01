@@ -1,4 +1,4 @@
-package com.zftx.pm.ui
+package com.mrtan.app.ui
 
 import com.mrtan.common.base.BasePresenter
 import com.mrtan.common.util.async

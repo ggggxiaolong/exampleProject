@@ -1,4 +1,4 @@
-package com.zftx.pm.di
+package com.mrtan.app.di
 
 import dagger.Module
 

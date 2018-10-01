@@ -1,6 +1,6 @@
-package com.zftx.pm.di
+package com.mrtan.app.di
 
-import com.zftx.pm.ui.LoginFragment
+import com.mrtan.app.ui.LoginFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

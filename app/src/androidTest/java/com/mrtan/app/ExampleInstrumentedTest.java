@@ -1,4 +1,4 @@
-package com.zftx.pm;
+package com.mrtan.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

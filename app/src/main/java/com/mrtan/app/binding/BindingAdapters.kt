@@ -1,4 +1,4 @@
-package com.zftx.pm.binding
+package com.mrtan.app.binding
 
 import android.content.Context
 import android.databinding.BindingAdapter
