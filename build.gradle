@@ -1,5 +1,5 @@
 apply plugin: 'com.github.ben-manes.versions'
-import org.ajoberstar.grgit.Grgit
+//import org.ajoberstar.grgit.Grgit
 
 buildscript {
   apply from: "dependencies/versions.gradle"
@@ -8,17 +8,18 @@ buildscript {
 
   dependencies {
     classpath deps.android_gradle_plugin
-    classpath deps.grgit
+//    classpath deps.grgit
     //检查版本更新  ./gradlew dependencyUpdates -Drevision=release
     classpath deps.lib_versions
     classpath deps.kotlin.plugin
-    classpath deps.kotlin.android_extensions
+    classpath deps.android_gradle_plugin
+    classpath deps.kotlin.serializationPlugin
   }
 }
 
 allprojects {
-  def git = Grgit.open(currentDir: projectDir)
-  addGitVersion(git.describe(), git.tag.list().size())
+//  def git = Grgit.open(currentDir: projectDir)
+  addGitVersion(gitVersionTag(), gitVersionCode())
 
   addRepos(repositories)
 }
@@ -40,7 +41,7 @@ subprojects {
   android {
     compileSdkVersion build_versions.compile_sdk
     defaultConfig {
-      if (isAppModule) applicationId "com.zftx.pm" //这里改成项目id
+      if (isAppModule) applicationId "com.mrtan.app" //这里改成项目id
       minSdkVersion build_versions.min_sdk
       targetSdkVersion build_versions.target_sdk
 
@@ -63,22 +64,27 @@ subprojects {
     }
   }
 
-  //room 和 kotlin bug
-  configurations.all {
-    resolutionStrategy {
-      eachDependency {
-        if (requested.name == "kotlin-compiler-embeddable") {
-          useVersion("1.2.30")
-        }
-      }
-    }
-  }
-
   dependencies {
-    implementation deps.kotlin.stdlib
-    implementation deps.rxjava2
-    implementation deps.rx_android
+    implementation deps.kotlin.stdlib.common
   }
+}
+
+def gitVersionCode() {
+  def out = new ByteArrayOutputStream()
+  exec {
+    commandLine 'git', 'tag'
+    standardOutput = out
+  }
+  return out.toString().split('\n').length
+}
+
+def gitVersionTag() {
+  def out = new ByteArrayOutputStream()
+  exec {
+    commandLine 'git', 'describe', '--tags'
+    standardOutput = out
+  }
+  return out.toString().trim()
 }
 
 task clean(type: Delete) {

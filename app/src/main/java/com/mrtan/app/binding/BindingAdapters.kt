@@ -1,7 +1,6 @@
 package com.mrtan.app.binding
 
 import android.content.Context
-import android.databinding.BindingAdapter
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.*
@@ -10,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 
@@ -48,7 +48,7 @@ fun ImageView.setImageUrl(url: String?) {
 
 @BindingAdapter("onSearch")
 fun onSearch(input: EditText, listener: OnTextListener?) {
-  input.setOnEditorActionListener({ v, actionId, _ ->
+  input.setOnEditorActionListener { v, actionId, _ ->
     if (actionId == EditorInfo.IME_ACTION_SEARCH) {
       if (listener != null) {
         val query = input.text.toString()
@@ -59,7 +59,7 @@ fun onSearch(input: EditText, listener: OnTextListener?) {
     } else {
       false
     }
-  })
+  }
 }
 
 @BindingAdapter("onKeyDown")

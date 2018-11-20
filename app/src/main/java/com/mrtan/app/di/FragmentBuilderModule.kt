@@ -1,6 +1,6 @@
 package com.mrtan.app.di
 
-import com.mrtan.app.ui.LoginFragment
+import com.mrtan.app.ui.CategoryFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,5 +9,5 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class FragmentBuilderModule {
-  @ContributesAndroidInjector abstract fun contributeLogin(): LoginFragment
+  @ContributesAndroidInjector abstract fun category(): CategoryFragment
 }

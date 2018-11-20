@@ -1,16 +1,13 @@
 package com.mrtan.common.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-/**
- * @author mrtan on 1/17/18.
- */
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
   private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;

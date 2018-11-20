@@ -1,3 +1,4 @@
+apply plugin: 'kotlinx-serialization'
 android {
   buildTypes {
     release {
@@ -30,33 +31,26 @@ android {
   }
 }
 
-kotlin {
-  experimental {
-    coroutines "enable"
-  }
-}
-
 dependencies {
   kapt deps.immutables.value
   kapt deps.dagger.compiler
   kapt deps.room.compiler
-  implementation deps.room.runtime
+  api deps.room.runtime
   implementation deps.dagger.runtime
   implementation deps.javax_inject
   implementation deps.retrofit.runtime
-  implementation deps.retrofit.rxjava2
-  implementation deps.retrofit.gson
-  //  implementation dataDependencies.okhttp
+  implementation deps.retrofit.coroutinesAdapter
+  implementation deps.retrofit.koltinSerialization
   implementation deps.okhttp3.logging
-  debugImplementation deps.okhttp3.stetho
-  implementation deps.gson
-//  compileOnly deps.support.annotations
-  compileOnly deps.immutables.value
-  compileOnly deps.immutables.gson
-  implementation deps.compressor
+  implementation deps.androidx.annotations
+  implementation deps.timber
+  implementation deps.androidUtils
+  implementation deps.kotlin.coroutines.common
+  implementation deps.kotlin.coroutines.jdk
+  implementation deps.kotlin.coroutines.android
   testImplementation deps.junit
   testImplementation deps.mockito.core
   testImplementation deps.roboletric
-  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.androidx.test.runner
   androidTestImplementation deps.espresso.core
 }

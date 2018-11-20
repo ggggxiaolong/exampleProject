@@ -1,12 +1,9 @@
 package com.mrtan.data
 
-import android.os.SystemClock
-import com.mrtan.data.domain.User
 import com.mrtan.data.local.AppDatabase
-import com.mrtan.data.local.entity.UserEntity
 import com.mrtan.data.remote.Api
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Job
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,21 +12,13 @@ import javax.inject.Singleton
  */
 @Singleton
 class Repository @Inject constructor(
-    private val mDB: AppDatabase,//
-    private val mApi: Api) {
+  private val mDB: AppDatabase,//
+  private val mApi: Api
+) {
+  fun category(author: String) = mApi.categories(author)
+}
 
-  fun login(name: String, password: String): Single<String> {
-    return Single.create<String> { e ->
-      kotlin.run {
-        SystemClock.sleep(1000)
-        e.onSuccess("sadasdasdwq123daq23455we65wqe")
-      }
-    }.doOnSuccess { token ->
-      Schedulers.io().createWorker().schedule {
-        mDB.userDao().insert(UserEntity.invoke(token))
-      }
-    }
-  }
-
-  fun user(username: String): Single<User> = mApi.user(username)
+suspend inline fun <T>  Deferred<T>.bindWait(job: Job) = let {
+  job.invokeOnCompletion { if (isCancelled) this.cancel() }
+  await()
 }

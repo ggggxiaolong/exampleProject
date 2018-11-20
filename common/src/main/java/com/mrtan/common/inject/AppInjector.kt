@@ -4,10 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks
 import com.mrtan.common.base.BaseActivity
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjection
@@ -38,13 +38,13 @@ class AppInjector private constructor() {
         }
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-          if (activity is BaseActivity) {
-            activity.fragmentInjector = fragmentInjector
-          }
+//          if (activity is BaseActivity) {
+//            activity.fragmentInjector = fragmentInjector
+//          }
           if (activity is FragmentActivity) {
             activity.supportFragmentManager.registerFragmentLifecycleCallbacks(
                 object : FragmentLifecycleCallbacks() {
-                  override fun onFragmentCreated(fm: FragmentManager?, f: Fragment,
+                  override fun onFragmentCreated(fm: FragmentManager, f: Fragment,
                       savedInstanceState: Bundle?) {
                     if (f is Injectable) {
                       AndroidSupportInjection.inject(f)

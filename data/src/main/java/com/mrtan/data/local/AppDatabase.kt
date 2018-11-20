@@ -1,7 +1,7 @@
 package com.mrtan.data.local
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.mrtan.data.local.dao.UserDao
 import com.mrtan.data.local.entity.UserEntity
 

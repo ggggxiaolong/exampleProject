@@ -1,10 +1,9 @@
 package com.mrtan.app
 
 import android.app.Activity
-import com.mrtan.common.base.BaseApplication
-import com.mrtan.common.inject.AppInjector
-import com.tencent.bugly.crashreport.CrashReport
 import com.mrtan.app.di.DaggerAppComponent
+import com.mrtan.common.base.BaseApplication
+import com.tencent.bugly.crashreport.CrashReport
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -30,6 +29,5 @@ class App : BaseApplication(), HasActivityInjector {
         .application(this)
         .build()
     appComponent.inject(this)
-    AppInjector.init(this, appComponent.fragmentInjector())
   }
 }

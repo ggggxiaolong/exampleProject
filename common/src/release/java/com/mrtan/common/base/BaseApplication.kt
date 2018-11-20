@@ -2,7 +2,7 @@ package com.mrtan.common.base
 
 import android.app.Application
 import android.content.Context
-import android.support.multidex.MultiDex
+import com.blankj.utilcode.util.Utils
 import com.mrtan.common.util.ContextHolder
 
 /**
@@ -10,11 +10,6 @@ import com.mrtan.common.util.ContextHolder
  */
 
 abstract class BaseApplication : Application(){
-
-  override fun attachBaseContext(base: Context?) {
-    super.attachBaseContext(base)
-    MultiDex.install(this)
-  }
 
   override fun onCreate() {
     super.onCreate()
@@ -24,6 +19,7 @@ abstract class BaseApplication : Application(){
 
   private fun initializeUtil() {
     ContextHolder.init(this)
+    Utils.init(this)
   }
 
   abstract fun initializeInject()

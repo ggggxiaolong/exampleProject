@@ -4,22 +4,21 @@ dependencies {
   api project(':data')
   kapt deps.dagger.compiler
   kapt deps.dagger.android_support_compiler
-  implementation deps.dagger.runtime
-  implementation deps.dagger.android
-  implementation deps.dagger.android_support
+  api deps.dagger.runtime
+  api deps.dagger.android
+  api deps.dagger.android_support
 
-  implementation deps.lifecycle.extensions
-
-  implementation deps.support.app_compat
-  implementation deps.support.recyclerview
-  implementation deps.arrow
-  implementation deps.timber
-  implementation deps.okhttp3.runtime
-  implementation deps.gson
-
-  implementation deps.autoDispose.android_arc_kotlin
+  api deps.lifecycle.extensions
+  api deps.androidx.appCompat
+  api deps.timber
+  api deps.lifecycle.runtime
+  api deps.lifecycle.extensions
+  api deps.androidUtils
+  api deps.kotlin.coroutines.common
+  api deps.kotlin.coroutines.jdk
+  api deps.kotlin.coroutines.android
 
   testImplementation deps.junit
-  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.androidx.test.runner
   androidTestImplementation deps.espresso.core
 }

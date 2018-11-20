@@ -1,49 +1,23 @@
 package com.mrtan.common.base
 
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
-import com.mrtan.common.R
-import com.mrtan.common.util.KeyBoardUtils
-import dagger.android.AndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.KeyboardUtils
 
 /**
  * @author mrtan on 17-3-14.
  */
-abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
-
-  internal var mTitle: TextView? = null
-  lateinit var fragmentInjector: AndroidInjector<Fragment>
+abstract class BaseActivity : AppCompatActivity() {
 
   protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) {
-    supportFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
-  }
-
-  override fun setContentView(@LayoutRes layoutResID: Int) {
-    super.setContentView(layoutResID)
-    val view:View? = findViewById(R.id.toolbar)
-    if (view != null) {
-      val toolbar = view as Toolbar
-      setSupportActionBar(toolbar)
-      supportActionBar?.setDisplayShowTitleEnabled(false)
-      mTitle = toolbar.findViewById(R.id.toolbar_title)
-    }
-  }
-
-  override fun onTitleChanged(title: CharSequence, color: Int) {
-    if (mTitle != null) {
-      mTitle?.text = title
-    } else {
-      super.onTitleChanged(title, color)
-    }
+    supportFragmentManager.beginTransaction()
+        .add(containerViewId, fragment)
+        .commit()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -61,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
       if (fragment.isVisible && fragment is BaseFragment) {
         val ids = fragment.hideSoftByEditViewIds()
         if (isFocusView(v, *ids)) {
-          KeyBoardUtils.hideInputForce(this)
+          KeyboardUtils.hideSoftInput(this)
           v.clearFocus()
           break
         }
@@ -70,12 +44,17 @@ abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
     return super.dispatchTouchEvent(ev)
   }
 
-  fun isFocusView(v: View, vararg ids: Int): Boolean {
-    return (ids.isNotEmpty()) && ids.contains(v.id)
-  }
-
-  override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-    return fragmentInjector
+  fun isFocusView(
+    v: View,
+    vararg ids: Int
+  ): Boolean {
+    val iterator = ids.iterator()
+    while (iterator.hasNext()) {
+      if (iterator.nextInt() == v.id) {
+        return true
+      }
+    }
+    return false
   }
 
   companion object {

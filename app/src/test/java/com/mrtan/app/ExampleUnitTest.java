@@ -1,7 +1,7 @@
 package com.mrtan.app;
 
 import com.mrtan.common.base.BaseActivity;
-import com.mrtan.app.ui.LoginActivity;
+import com.mrtan.app.ui.CategoryActivity;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,6 +19,6 @@ public class ExampleUnitTest {
 
     @Test public void testInterface(){
         System.out.println(BaseActivity.class.getInterfaces().length);
-        System.out.println(LoginActivity.class.getGenericInterfaces().length);
+        System.out.println(CategoryActivity.class.getGenericInterfaces().length);
     }
 }

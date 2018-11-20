@@ -47,10 +47,11 @@ android {
 
 dependencies {
   implementation project(":common")
-  implementation deps.support.app_compat
-  implementation deps.support.constraint_layout
-  implementation deps.support.recyclerview
-  implementation deps.support.design
+  implementation project(":data")
+  implementation deps.androidx.appCompat
+  implementation deps.androidx.constraintLayout
+  implementation deps.androidx.recyclerView
+  implementation deps.androidx.material
 
   kapt deps.dagger.compiler
   kapt deps.dagger.android_support_compiler
@@ -59,21 +60,18 @@ dependencies {
   implementation deps.dagger.android_support
 
   implementation deps.timber
+  implementation deps.lifecycle.extensions
 
   kapt deps.glide.compile
   implementation deps.glide.runtime
   implementation deps.glide.okHttp3
   implementation deps.glide.recyclerView
 
-  implementation deps.autoDispose.runtime
-  implementation deps.autoDispose.kotlin
-  implementation deps.autoDispose.android_arc_kotlin
-
   implementation deps.gson
   implementation deps.bugly
   kapt deps.room.compiler
   implementation deps.room.runtime
   testImplementation deps.junit
-  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.androidx.test.runner
   androidTestImplementation deps.espresso.core
 }
